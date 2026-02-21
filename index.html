@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>経営データDX化支援 ポートフォリオ</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary: #1B3A5C;
+  --primary-dark: #0F2440;
+  --accent: #2E86AB;
+  --accent-light: #3A9CC4;
+  --light-bg: #F0F5FA;
+  --card-bg: #F8FAFC;
+  --dark: #1A1A2E;
+  --medium: #4A4A6A;
+  --white: #FFFFFF;
+  --highlight: #E8F1F8;
+  --success: #27AE60;
+  --warning: #F39C12;
+  --danger: #E74C3C;
+  --border: #D0D8E0;
+  --purple: #8E44AD;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--dark);
+  background: var(--light-bg);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--accent) 100%);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(46,134,171,0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -15%;
+  left: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(46,134,171,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  color: var(--white);
+}
+
+.hero-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 20px;
+  animation: slideUp 0.8s ease-out;
+}
+
+.hero-title {
+  font-weight: 900;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  line-height: 1.3;
+  margin-bottom: 12px;
+  animation: slideUp 0.8s ease-out 0.1s both;
+}
+
+.hero-subtitle {
+  font-weight: 700;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  opacity: 0.85;
+  margin-bottom: 24px;
+  animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+.hero-desc {
+  font-weight: 300;
+  font-size: 1rem;
+  opacity: 0.7;
+  max-width: 600px;
+  margin-bottom: 40px;
+  animation: slideUp 0.8s ease-out 0.3s both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Stats bar */
+.stats-bar {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  animation: slideUp 0.8s ease-out 0.4s both;
+}
+
+.stat-item {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  padding: 20px 28px;
+  text-align: center;
+  min-width: 130px;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.stat-item:hover {
+  transform: translateY(-4px);
+  background: rgba(255,255,255,0.18);
+}
+
+.stat-number {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  display: block;
+}
+
+.stat-unit {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-top: 4px;
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.scroll-hint span {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-right: 2px solid rgba(255,255,255,0.4);
+  border-bottom: 2px solid rgba(255,255,255,0.4);
+  transform: rotate(45deg);
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 40px;
+}
+
+.section-header {
+  margin-bottom: 48px;
+}
+
+.section-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-weight: 900;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* ===== DELIVERABLE CARDS ===== */
+.deliverables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+
+.deliverable-card {
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(27,58,92,0.06);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border: 1px solid rgba(208,216,224,0.5);
+}
+
+.deliverable-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(27,58,92,0.12);
+}
+
+.card-accent {
+  height: 5px;
+}
+
+.card-accent.navy { background: var(--primary); }
+.card-accent.blue { background: var(--accent); }
+.card-accent.green { background: var(--success); }
+.card-accent.purple { background: var(--purple); }
+
+.card-body {
+  padding: 28px;
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+}
+
+.card-icon.navy { background: var(--highlight); color: var(--primary); }
+.card-icon.blue { background: #E3F2FD; color: var(--accent); }
+.card-icon.green { background: #E8F5E9; color: var(--success); }
+
+.card-title {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+
+.card-file {
+  font-family: 'Outfit', monospace;
+  font-size: 0.78rem;
+  color: var(--accent);
+  background: var(--light-bg);
+  padding: 3px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.card-desc {
+  font-size: 0.88rem;
+  color: var(--medium);
+  margin-bottom: 16px;
+}
+
+.card-features {
+  list-style: none;
+}
+
+.card-features li {
+  font-size: 0.82rem;
+  color: var(--dark);
+  padding: 5px 0;
+  padding-left: 18px;
+  position: relative;
+}
+
+.card-features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+.card-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.meta-tag {
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--light-bg);
+  color: var(--primary);
+}
+
+/* ===== SHEET DETAIL TABLE ===== */
+.detail-section {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 36px;
+  margin-top: 28px;
+  box-shadow: 0 4px 20px rgba(27,58,92,0.06);
+  border: 1px solid rgba(208,216,224,0.5);
+}
+
+.detail-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-title .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: var(--primary);
+  color: var(--white);
+  font-weight: 500;
+  font-size: 0.82rem;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+th:first-child { border-radius: 8px 0 0 0; }
+th:last-child { border-radius: 0 8px 0 0; }
+
+td {
+  padding: 11px 16px;
+  font-size: 0.84rem;
+  border-bottom: 1px solid var(--border);
+}
+
+tr:nth-child(even) td { background: var(--light-bg); }
+tr:hover td { background: var(--highlight); }
+
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.badge-navy { background: var(--highlight); color: var(--primary); }
+.badge-green { background: #D4EDDA; color: #155724; }
+.badge-blue { background: #D1ECF1; color: #0C5460; }
+
+/* ===== SKILLS SECTION ===== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.skill-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  transition: transform 0.2s;
+}
+
+.skill-card:hover { transform: translateY(-3px); }
+
+.skill-name {
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.skill-bar-outer {
+  height: 6px;
+  background: var(--light-bg);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.skill-bar-inner {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  transition: width 1.5s ease-out;
+}
+
+.skill-level {
+  font-size: 0.72rem;
+  color: var(--medium);
+  text-align: right;
+}
+
+/* ===== CTA SECTION ===== */
+.cta-section {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  padding: 60px 40px;
+  text-align: center;
+  color: var(--white);
+}
+
+.cta-title {
+  font-weight: 900;
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+}
+
+.cta-desc {
+  font-weight: 300;
+  font-size: 0.95rem;
+  opacity: 0.75;
+  max-width: 500px;
+  margin: 0 auto 30px;
+}
+
+.cta-tags {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cta-tag {
+  font-size: 0.78rem;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--white);
+  transition: background 0.2s;
+}
+
+.cta-tag:hover {
+  background: rgba(255,255,255,0.22);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.75rem;
+  color: var(--medium);
+  background: var(--white);
+}
+
+@media (max-width: 768px) {
+  .hero-content { padding: 40px 24px; }
+  .stats-bar { gap: 16px; }
+  .stat-item { min-width: 100px; padding: 14px 18px; }
+  .section { padding: 50px 20px; }
+  .deliverables-grid { grid-template-columns: 1fr; }
+  .detail-section { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">Portfolio — DX Consulting</div>
+    <h1 class="hero-title">経営データDX化支援</h1>
+    <p class="hero-subtitle">成果物ポートフォリオ</p>
+    <p class="hero-desc">Excel管理最適化・KPI設計・業務フロー構築を一貫して設計。<br>データを経営の力に変える成果物をご紹介します。</p>
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-number">5</span>
+        <span class="stat-unit">成果物ファイル</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">12+</span>
+        <span class="stat-unit">Excelシート</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">412</span>
+        <span class="stat-unit">数式（エラー0）</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">6</span>
+        <span class="stat-unit">グラフ</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span></span></div>
+</section>
+
+<!-- DELIVERABLES -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-label">Deliverables</div>
+    <h2 class="section-title">成果物一覧</h2>
+  </div>
+
+  <div class="deliverables-grid">
+    <!-- Card 1 -->
+    <div class="deliverable-card">
+      <div class="card-accent blue"></div>
+      <div class="card-body">
+        <div class="card-icon blue">📄</div>
+        <h3 class="card-title">提案書PDF</h3>
+        <span class="card-file">proposal_sample.pdf</span>
+        <p class="card-desc">クライアント向けの経営データDX化提案書。課題分析から施策設計、スケジュールまで網羅。</p>
+        <ul class="card-features">
+          <li>5ページ構成（A4）</li>
+          <li>4段階フェーズ図で全体像を提示</li>
+          <li>具体的な施策4本柱を詳述</li>
+          <li>6ヶ月ロードマップ付き</li>
+          <li>報酬条件・契約条件明記</li>
+        </ul>
+        <div class="card-meta">
+          <span class="meta-tag">Python</span>
+          <span class="meta-tag">ReportLab</span>
+          <span class="meta-tag">CIDフォント</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="deliverable-card">
+      <div class="card-accent navy"></div>
+      <div class="card-body">
+        <div class="card-icon navy">📊</div>
+        <h3 class="card-title">Excelマスターシート</h3>
+        <span class="card-file">master_sheet_sample.xlsx</span>
+        <p class="card-desc">受注・売上・仕入れを一元管理するExcelテンプレート。サンプルデータ入りで即運用可能。</p>
+        <ul class="card-features">
+          <li>7シート構成（受注・売上・仕入・商品・顧客・予算・ガイド）</li>
+          <li>274個の数式（全エラーゼロ確認済）</li>
+          <li>条件付き書式による自動判定</li>
+          <li>月次グラフ自動更新</li>
+          <li>運用ガイドシート付き</li>
+        </ul>
+        <div class="card-meta">
+          <span class="meta-tag">Python</span>
+          <span class="meta-tag">openpyxl</span>
+          <span class="meta-tag">274数式</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="deliverable-card">
+      <div class="card-accent green"></div>
+      <div class="card-body">
+        <div class="card-icon green">📈</div>
+        <h3 class="card-title">KPIダッシュボード</h3>
+        <span class="card-file">kpi_dashboard_sample.xlsx</span>
+        <p class="card-desc">経営指標を一目で把握できるダッシュボード。チャネル分析・商品分析・コスト管理を網羅。</p>
+        <ul class="card-features">
+          <li>5シート構成（経営DB・チャネル・商品・KPI・コスト）</li>
+          <li>138個の数式（全エラーゼロ確認済）</li>
+          <li>KPIカード + グラフ6個</li>
+          <li>ABC分析・改善アクション一覧</li>
+          <li>データバー・色分け条件付き書式</li>
+        </ul>
+        <div class="card-meta">
+          <span class="meta-tag">Python</span>
+          <span class="meta-tag">openpyxl</span>
+          <span class="meta-tag">138数式</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="deliverable-card">
+      <div class="card-accent purple"></div>
+      <div class="card-body">
+        <div class="card-icon" style="background:#F3E5F5;color:#8E44AD;">📋</div>
+        <h3 class="card-title">業務フロー図・運用マニュアル</h3>
+        <span class="card-file">operations_manual.docx</span>
+        <p class="card-desc">日次・週次・月次の業務フロー図と、各シートの入力ルール・担当者・トラブル対応を網羅した運用マニュアル。</p>
+        <ul class="card-features">
+          <li>日次・週次・月次の業務フロー図（ステップ形式）</li>
+          <li>各シートの入力ルール詳細（採番・形式・注意事項）</li>
+          <li>担当者・権限一覧表</li>
+          <li>よくあるトラブルと対応方法</li>
+          <li>年間運用カレンダー</li>
+        </ul>
+        <div class="card-meta">
+          <span class="meta-tag">Node.js</span>
+          <span class="meta-tag">docx-js</span>
+          <span class="meta-tag">Word文書</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="deliverable-card">
+      <div class="card-accent" style="background:#E74C3C;"></div>
+      <div class="card-body">
+        <div class="card-icon" style="background:#FDEDEC;color:#E74C3C;">🤖</div>
+        <h3 class="card-title">AIツール導入提案書</h3>
+        <span class="card-file">ai_tools_proposal.pdf</span>
+        <p class="card-desc">Claude・ChatGPT・Notion・Looker Studio等のAIツールを業務に導入するための具体的な提案書。</p>
+        <ul class="card-features">
+          <li>6ページ構成（課題分析〜ROI試算）</li>
+          <li>推奨ツール6種のカード型紹介</li>
+          <li>用途別比較表（分析/共有/自動化）</li>
+          <li>3段階導入ロードマップ</li>
+          <li>月額コスト試算・ROI試算付き</li>
+        </ul>
+        <div class="card-meta">
+          <span class="meta-tag">Python</span>
+          <span class="meta-tag">ReportLab</span>
+          <span class="meta-tag">6ページ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail: Excel Master -->
+  <div class="detail-section">
+    <div class="detail-title"><span class="dot"></span>Excelマスターシート — シート構成</div>
+    <table>
+      <thead>
+        <tr>
+          <th>シート名</th>
+          <th>概要</th>
+          <th>主な機能</th>
+          <th>データ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>受注管理</strong></td>
+          <td>日次受注の記録・集計</td>
+          <td>自動計算（税額・合計）、フィルター</td>
+          <td><span class="badge badge-navy">30件サンプル</span></td>
+        </tr>
+        <tr>
+          <td><strong>売上管理</strong></td>
+          <td>月次チャネル別売上</td>
+          <td>積上げ棒グラフ、利益率推移グラフ</td>
+          <td><span class="badge badge-navy">12ヶ月</span></td>
+        </tr>
+        <tr>
+          <td><strong>仕入管理</strong></td>
+          <td>仕入先別の発注・納品管理</td>
+          <td>自動計算、フィルター、納品状況</td>
+          <td><span class="badge badge-navy">25件サンプル</span></td>
+        </tr>
+        <tr>
+          <td><strong>商品マスタ</strong></td>
+          <td>商品情報の一元管理</td>
+          <td>粗利率自動計算、在庫状況自動判定</td>
+          <td><span class="badge badge-green">条件付き書式</span></td>
+        </tr>
+        <tr>
+          <td><strong>顧客マスタ</strong></td>
+          <td>取引実績・ランク管理</td>
+          <td>累計取引額、A〜Dランク分類</td>
+          <td><span class="badge badge-navy">8顧客</span></td>
+        </tr>
+        <tr>
+          <td><strong>予算実績対比</strong></td>
+          <td>年間予算vs月次実績</td>
+          <td>達成率自動計算、未達ハイライト</td>
+          <td><span class="badge badge-blue">12科目</span></td>
+        </tr>
+        <tr>
+          <td><strong>使い方ガイド</strong></td>
+          <td>運用ルール・手順書</td>
+          <td>入力担当・タイミング・注意事項</td>
+          <td><span class="badge badge-green">即運用可</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Detail: KPI Dashboard -->
+  <div class="detail-section">
+    <div class="detail-title"><span class="dot"></span>KPIダッシュボード — シート構成</div>
+    <table>
+      <thead>
+        <tr>
+          <th>シート名</th>
+          <th>概要</th>
+          <th>主な機能</th>
+          <th>ビジュアル</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>経営ダッシュボード</strong></td>
+          <td>主要KPI一覧</td>
+          <td>KPIカード4枚、月次データテーブル</td>
+          <td><span class="badge badge-blue">棒グラフ+折れ線</span></td>
+        </tr>
+        <tr>
+          <td><strong>チャネル分析</strong></td>
+          <td>EC/実店舗/卸売比較</td>
+          <td>KPI比較表、成長率色分け</td>
+          <td><span class="badge badge-blue">円グラフ+折れ線</span></td>
+        </tr>
+        <tr>
+          <td><strong>商品分析</strong></td>
+          <td>売上ランキング</td>
+          <td>データバー、ABC分析+管理方針</td>
+          <td><span class="badge badge-blue">横棒グラフ</span></td>
+        </tr>
+        <tr>
+          <td><strong>KPI目標管理</strong></td>
+          <td>10指標の達成追跡</td>
+          <td>◎○△×色分け、改善アクション</td>
+          <td><span class="badge badge-green">データバー</span></td>
+        </tr>
+        <tr>
+          <td><strong>コスト管理</strong></td>
+          <td>費目別予算vs実績</td>
+          <td>差異ハイライト、月次推移</td>
+          <td><span class="badge badge-blue">円グラフ+折れ線</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" style="background: var(--white); max-width: 100%; padding-left: 0; padding-right: 0;">
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 40px;">
+    <div class="section-header">
+      <div class="section-label">Skills</div>
+      <h2 class="section-title">スキル・強み</h2>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-name">経営データ設計・分析</div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" style="width:92%"></div></div>
+        <div class="skill-level">KPI選定・予算管理・コスト分析</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Excel高度活用</div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" style="width:95%"></div></div>
+        <div class="skill-level">関数設計・ピボット・条件付き書式・マクロ</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">ダッシュボード構築</div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" style="width:90%"></div></div>
+        <div class="skill-level">経営指標の見える化・グラフ設計</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">業務フロー設計</div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" style="width:88%"></div></div>
+        <div class="skill-level">運用定着・マニュアル作成・研修設計</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">Python自動化</div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" style="width:85%"></div></div>
+        <div class="skill-level">ReportLab・openpyxl・テンプレート自動生成</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-name">AIツール活用</div>
+        <div class="skill-bar-outer"><div class="skill-bar-inner" style="width:87%"></div></div>
+        <div class="skill-level">業務改善・データ分析へのAI導入支援</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-title">データを経営の力に変える</h2>
+  <p class="cta-desc">設計から運用定着まで、一貫してサポートします。お気軽にご相談ください。</p>
+  <div class="cta-tags">
+    <span class="cta-tag">Excel設計</span>
+    <span class="cta-tag">KPI設計</span>
+    <span class="cta-tag">データ分析</span>
+    <span class="cta-tag">予算管理</span>
+    <span class="cta-tag">業務フロー</span>
+    <span class="cta-tag">ダッシュボード</span>
+    <span class="cta-tag">Python</span>
+    <span class="cta-tag">AI活用</span>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Portfolio — 経営データDX化支援
+</footer>
+
+</body>
+</html>
